@@ -1,16 +1,18 @@
 <template>
   <div class="memo-form">
-    <form>
+    <form @submit.prevent="addMemo">
       <fieldset>
         <div>
           <input
             class="memo-form__title-form"
             placeholder="메모의 제목을 입력해주세요"
             type="text"
+            v-model="title"
           />
           <textarea
             class="memo-form__content-form"
             placeholder="메모의 내용을 입력해주세요"
+            v-model="content"
           ></textarea>
           <button type="reset">
             <i class="fas fa-sync-alt"></i>
@@ -24,7 +26,29 @@
 
 <script>
 export default {
-  name: "MemoForm"
+  name: 'MemoForm',
+  data() {
+    return {
+      title: '',
+      content: ''
+    };
+  },
+  methods: {
+    addMemo() {
+      const { title, content } = this;
+      const id = new Date().getTime();
+
+      const isEmpty = title.length <= 0 || content.length <= 0;
+      if (isEmpty) return false;
+      // addMemo 이벤트를 발생시키고, payload로 사용자가 입력한 데이터를 넣어준다.
+      this.$emit('addMemo', { id, title, content });
+      this.resetFields();
+    },
+    resetFields() {
+      this.title = '';
+      this.content = '';
+    }
+  }
 };
 </script>
 
@@ -41,7 +65,7 @@ export default {
   box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.2);
   background-color: #fff;
 }
-.memo-form form fieldset div button[type="reset"] {
+.memo-form form fieldset div button[type='reset'] {
   position: absolute;
   right: 20px;
   bottom: 20px;
@@ -49,7 +73,7 @@ export default {
   background: none;
 }
 
-.memo-form form fieldset button[type="submit"] {
+.memo-form form fieldset button[type='submit'] {
   float: right;
   width: 96px;
   padding: 12px 0;
