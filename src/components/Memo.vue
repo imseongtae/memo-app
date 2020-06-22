@@ -1,7 +1,22 @@
 <template>
   <li class="memo-item">
     <strong>{{ memo.title }}</strong>
-    <p>{{ memo.content }}</p>
+    <!-- p태그에 더블클릭 이벤트 추가 -->
+    <p @dblclick="handleDbClick">
+      <template v-if="!isEditing">
+        {{ memo.content }}
+      </template>
+      <!-- 2. 수정 필드를 위한 태그 추가 -->
+      <input
+        v-else
+        type="text"
+        ref="content"
+        :value="memo.content"
+        @keydown.enter="updateMemo"
+        @blur="handleBlur"
+      />
+    </p>
+
     <button type="button" @click="deleteMemo">
       <i class="fas fa-times"></i>
     </button>
@@ -16,11 +31,39 @@ export default {
       type: Object
     }
   },
+  data() {
+    return {
+      isEditing: false
+    };
+  },
+  beforeUpdate() {
+    console.log('beforeUpdate =>', this.$refs.content);
+  },
+  updated() {
+    console.log('updated =>', this.$refs.content);
+  },
   methods: {
     deleteMemo() {
       // memo id를 deleteMemo 함수의 파라미터로 전달
       const id = this.memo.id;
       this.$emit('deleteMemo', id);
+    },
+    handleDbClick() {
+      this.isEditing = true;
+      console.log('handleDbClick =>', this.$refs.content);
+      this.$nextTick(() => {
+        this.$refs.content.focus();
+      });
+    },
+    updateMemo(e) {
+      const id = this.memo.id;
+      const content = e.target.value.trim();
+      if (content.length <= 0) return false;
+      this.$emit('updateMemo', { id, content });
+      this.isEditing = false;
+    },
+    handleBlur() {
+      this.isEditing = false;
     }
   }
 };
@@ -57,5 +100,12 @@ export default {
   font-size: 14px;
   line-height: 22px;
   color: #666;
+}
+
+.memo-item p input[type='text'] {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: inherit;
+  border: 1px solid #999;
 }
 </style>

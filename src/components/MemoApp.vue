@@ -11,6 +11,7 @@
         :key="memo.id"
         :memo="memo"
         @deleteMemo="deleteMemo"
+        @updateMemo="updateMemo"
       />
     </ul>
   </div>
@@ -54,6 +55,13 @@ export default {
       // 2. 찾은 인덱스 번호에 해당하는 메모 데이터를 삭제
       this.memos.splice(targetIndex, 1);
       // 3. 삭제된 후의 데이터를 다시 로컬스토리지에 저장
+      this.storeMemo();
+    },
+    updateMemo(payload) {
+      const { id, content } = payload;
+      const targetIndex = this.memos.findIndex(v => v.id === id);
+      const targetMemo = this.memos[targetIndex];
+      this.memos.splice(targetIndex, 1, { ...targetMemo, content });
       this.storeMemo();
     }
   }
