@@ -36,12 +36,13 @@ export default {
   methods: {
     addMemo() {
       const { title, content } = this;
-      const id = new Date().getTime();
+      // const id = new Date().getTime(); // 서버에서 id를 생성하므로 삭제
 
       const isEmpty = title.length <= 0 || content.length <= 0;
       if (isEmpty) return false;
       // addMemo 이벤트를 발생시키고, payload로 사용자가 입력한 데이터를 넣어준다.
-      this.$emit('addMemo', { id, title, content });
+      // this.$emit('addMemo', { id, title, content });
+      this.$emit('addMemo', { title, content }); // 부모 컴포넌트로 전달하는 인자 중 id 삭제
       this.resetFields();
     },
     resetFields() {
