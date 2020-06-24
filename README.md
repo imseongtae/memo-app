@@ -1,6 +1,8 @@
 # memo-application 
-커피 한 잔 마시며 끝내는 Vue.js 를 학습하며 실습한 내용
-현재 `2-connect-backend-api` 브랜치는 Backend API와 연동한 파트를 학습하며 정리한 내용입니다.
+커피 한 잔 마시며 끝내는 Vue.js 를 학습하며 실습한 내용입니다.  
+
+현재 `2-connect-backend-api` 브랜치는  
+Backend API와 연동한 파트를 학습하며 정리한 내용입니다.
 
 ## Project setup
 ```
