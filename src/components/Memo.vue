@@ -29,12 +29,23 @@ export default {
   props: {
     memo: {
       type: Object
+    },
+    // 부모 컴포넌트로부터 내려받은 editingId 추가
+    editingId: {
+      type: Number
     }
   },
-  data() {
-    return {
-      isEditing: false
-    };
+  // 수정 중 여부 데이터는 삭제
+  // data() {
+  //   return {
+  //     isEditing: false
+  //   };
+  // },
+  computed: {
+    isEditing() {
+      // 현재 메모가 수정 중인 여부를 computed를 통해 계산
+      return this.memo.id === this.editingId;
+    }
   },
   beforeUpdate() {
     console.log('beforeUpdate =>', this.$refs.content);
@@ -49,8 +60,9 @@ export default {
       this.$emit('deleteMemo', id);
     },
     handleDbClick() {
-      this.isEditing = true;
-      console.log('handleDbClick =>', this.$refs.content);
+      // this.isEditing = true;
+      // console.log('handleDbClick =>', this.$refs.content);
+      this.$emit('setEditingId', this.memo.id);
       this.$nextTick(() => {
         this.$refs.content.focus();
       });
@@ -60,10 +72,13 @@ export default {
       const content = e.target.value.trim();
       if (content.length <= 0) return false;
       this.$emit('updateMemo', { id, content });
-      this.isEditing = false;
+      // this.isEditing = false;
+      // 수정완료 후 인풋에서 포커스 제거
+      this.$refs.content.blur();
     },
     handleBlur() {
-      this.isEditing = false;
+      // this.isEditing = false;
+      this.$emit('resetEditingId');
     }
   }
 };
