@@ -6,6 +6,11 @@
 - Back-end API를 연동하였으며, 
 - 코드를 리팩토링한 내용을 정리했습니다.
 
+## Project Image
+
+<img width="591" alt="image" src="https://user-images.githubusercontent.com/60806840/85702114-0ab63480-b719-11ea-9865-030ef213500b.png">
+
+
 ## Project setup
 ```
 npm install
