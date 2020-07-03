@@ -11,6 +11,16 @@
 <img width="591" alt="image" src="https://user-images.githubusercontent.com/60806840/85702114-0ab63480-b719-11ea-9865-030ef213500b.png">
 
 
+## Backend setup
+
+[Back-end Server Repository 링크](https://github.com/CanDoVueJS/RESTful-api-server)
+위의 링크에서 Back-end Server를 다운받고 프로젝트를 실행
+
+### 참고
+
+- [커피 한잔으로 끝내는 Vue.js 깃허브 링크](https://github.com/CanDoVueJS)
+
+
 ## Project setup
 ```
 npm install
